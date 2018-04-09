@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IFE JavaScript Task 05</title>
+    <style>
+        div span{
+            background-color: red;            
+            margin-left: 5px;
+            display: inline-block;
+        }
+        .number{
+            display: inline-block;
+            width: 30px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <!-- 任务描述
+            基于上一任务
+            限制输入的数字在10-100
+            队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
+            队列展现方式变化如图，直接用高度表示数字大小
+            实现一个简单的排序功能，如冒泡排序（不限制具体算法），用可视化的方法表达出来，参考见下方参考资料
+        任务注意事项
+            实现简单功能的同时，请仔细学习JavaScript基本语法、事件、DOM相关的知识
+            请注意代码风格的整齐、优雅
+            代码中含有必要的注释
+            示例图仅为参考，不需要完全一致
+            具体算法及可视化的形式不做特别限制，只要求能够展现出算法的过程
+            建议不使用任何第三方库、框架 -->
+            <input type="text" id="input_text">
+            <button id="left_in">左侧入</button>
+            <button id="right_in">右侧入</button>
+    
+            <button id="left_out">左侧出</button>
+            <button id="right_out">右侧出</button>
+            <div id="list"></div>
+            <button id="resort">点我排序</button>
+        
+            <script>
+                bubbleSort();
+                var leftIn=document.getElementById("left_in");
+                var rightIn=document.getElementById("right_in");
+                var leftOut=document.getElementById("left_out");
+                var rightOut=document.getElementById("right_out");
+    
+                var lists=document.getElementById("list");
+                          
+                
+                //限制输入的是数字，且在10-100
+                var text=document.getElementById("input_text");
+                function input_num(inputNumber){
+                    if(inputNumber.value==""){
+                        alert("请输入一个数字！");
+                        return -1;
+                    }else if(!isNaN(inputNumber.value)){
+                        if(inputNumber.value>=10&&inputNumber.value<100){
+                            return inputNumber.value;
+                        }else{
+                            alert("请输入10-100之间的一个数字");
+                            return -1;
+                        }
+                    }else{
+                        alert("请确定输入的是一个数字！请重新输入！");
+                        inputNumber.value="";
+                        return -1;
+                    }
+                }
+    
+                //限制队列数量最多60个
+                var count=0;//统计队列综述
+                function limit(total){
+                    if(total>5){
+                        alert("队列数量不能超过5个！");
+                        value=-1;
+                        return value;
+                    }             
+                }
+
+                //冒泡排序
+                function bubbleSort(){
+                    var re_sort=document.getElementById("resort");
+                    re_sort.addEventListener("click",function(){
+                        var contents=lists.getElementsByTagName("span");
+                        var i=contents.length;
+                        var temp;
+                        
+                        while(i>0){
+                            for(var j=0;j<i-1;j++){//这里当有100px时，是不能正常排序的，因为比较的是'100px'这个字符串
+                                if(contents[j].style.height>contents[j+1].style.height){
+                                    temp=contents[j].style.height;
+                                    contents[j].style.height=contents[j+1].style.height;
+                                    contents[j+1].style.height=temp;
+                                }
+                            }
+                            i--;
+                        }
+                    });
+            }
+
+                //左侧入
+                    leftIn.addEventListener("click",function(){
+                        var value=input_num(text);
+                        var count_total=limit(count+1);
+
+                        if(value!=-1 && count_total!=-1){
+                            // var node=document.createElement("span");
+                            // var nodeText=document.createTextNode(value);
+                            // node.appendChild(nodeText);
+                            // lists.insertBefore(node,lists.children[0]);
+                            var node=document.createElement("span");
+                            var height=value+"px";
+                            node.className="number";//柱状图样式
+                            lists.insertBefore(node,lists.childNodes[0]);
+                            node.setAttribute("style","height:"+height);//柱状图高度
+                            count++;
+                        }
+                        text.value='';
+                    });
+
+
+     
+    
+                //右侧入
+                    rightIn.addEventListener("click",function(){
+                        var value=input_num(text);
+                        var count_total=limit(count+1);
+
+                        if(value!=-1 && count_total!=-1){
+                            // var node=document.createElement("span");
+                            // var nodeText=document.createTextNode(value);
+                            // node.appendChild(nodeText);
+                            // lists.appendChild(node);
+                            
+
+                            var node=document.createElement("span");
+                            var height=value+"px";
+                            node.className="number";//柱状图样式
+                            lists.appendChild(node);
+                            node.setAttribute("style","height:"+height);//柱状图高度
+                            count++;
+                        }
+                        text.value='';
+                    });
+                    
+                //左侧出
+                    leftOut.addEventListener("click",function(){
+                        if(lists){
+                            alert(lists.firstElementChild.style.height);
+                            lists.firstElementChild.remove();
+                            count--;
+                        }
+                        text.value='';
+                    })
+                
+                //右侧出
+                    rightOut.addEventListener("click",function(){
+                        if(lists){
+                            alert(lists.lastElementChild.style.height);
+                            lists.lastElementChild.remove();
+                            count--;
+                        }
+                        text.value='';
+                    })
+                    
+                //删除点击的元素
+                    lists.addEventListener("click",function(e){
+                        if(event.target.nodeName="span"){
+                            lists.removeChild(event.target);
+                            count--;
+                        }
+                    })
+            </script>
+</body>
+</html>
