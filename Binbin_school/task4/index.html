@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IFE JavaScript Task 04</title>
+    <style>
+        div span{
+            background-color: red;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+    任务目的
+学习与实践JavaScript的基本语法、语言特性
+初步了解JavaScript的事件是什么
+初步了解JavaScript中的DOM是什么
+    任务描述
+如图，模拟一个队列，队列的每个元素是一个数字，初始队列为空
+有一个input输入框，以及4个操作按钮
+
+点击"左侧入"，将input中输入的数字从左侧插入队列中；
+点击"右侧入"，将input中输入的数字从右侧插入队列中；
+点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+点击"右侧出"，读取并删除队列右侧第一个元素，并弹窗显示元素中数值；
+点击队列中任何一个元素，则该元素会被从队列中删除 -->
+        <input type="text" id="input_text">
+        <button id="left_in">左侧入</button>
+        <button id="right_in">右侧入</button>
+
+        <button id="left_out">左侧出</button>
+        <button id="right_out">右侧出</button>
+        <div id="list">
+        </div>
+
+        <script>
+
+            var leftIn=document.getElementById("left_in");
+            var rightIn=document.getElementById("right_in");
+            var leftOut=document.getElementById("left_out");
+            var rightOut=document.getElementById("right_out");
+
+            var lists=document.getElementById("list");
+            var text=document.getElementById("input_text");            
+
+
+
+            //左侧入
+                leftIn.addEventListener("click",function(){
+                    if(text.value){
+                        var node=document.createElement("span");
+                        var nodeText=document.createTextNode(text.value);
+                        node.appendChild(nodeText);
+                        lists.insertBefore(node,lists.children[0]);
+                    }
+                    text.value='';
+                });
+ 
+
+            //右侧入
+                rightIn.addEventListener("click",function(){
+                    if(text.value){
+                        var node=document.createElement("span");
+                        var nodeText=document.createTextNode(text.value);
+                        node.appendChild(nodeText);
+                        lists.appendChild(node);
+                    }
+                    text.value='';
+                });
+                
+            //左侧出
+                leftOut.addEventListener("click",function(){
+                    if(lists){
+                        alert(lists.firstElementChild.innerHTML);
+                        lists.firstElementChild.remove();
+                    }
+                })
+            
+            //右侧出
+                rightOut.addEventListener("click",function(){
+                    if(lists){
+                        alert(lists.lastElementChild.innerHTML);
+                        lists.lastElementChild.remove();
+                    }
+                })
+                
+            //删除点击的元素
+                lists.addEventListener("click",function(e){
+                    if(event.target.nodeName="span"){
+                        lists.removeChild(event.target)
+                    }
+                })
+        </script>
+</body>
+</html>
