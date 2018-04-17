@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +17,30 @@
     <span>2</span>
     <span>56</span>
     <script>
-      
-    
+        var str="as, 274、we";
+        var arr=str.split(",","、");
+        console.log(arr);
     </script>
 </body>
-</html>
+</html> -->
+<html>  
+<head>  
+    <title>title</title>  
+
+
+</head>  
+<body>  
+    <textarea type="text" id="input_text"></textarea>
+    <br>
+    <button id="search">查询</button>
+
+    <script>  
+        var text=document.getElementById("input_text"); 
+        var sch=document.getElementById("search");
+        sch.onclick=function(){
+           console.log(text.value.replace(/\s+|\,+|\，+|\n+|\、+|\.+/g,' '));
+       }
+       </script>  
+       
+</body>  
+</html>  

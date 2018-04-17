@@ -5,15 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IFE JavaScript Task 06</title>
+    <style>
+        div span{
+            background-color: red;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- 
-        任务描述
-基于任务四进行升级
-将新元素输入框从input改为textarea
-允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔
-增加一个查询文本输入框，和一个查询按钮，当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。
-举例，内容中有abcd，查询词为ab或bc，则该内容需要标识 -->
+    任务描述
+        基于任务四进行升级
+        将新元素输入框从input改为textarea
+        允许一次批量输入多个内容，格式可以为数字、中文、英文等，可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔
+        增加一个查询文本输入框，和一个查询按钮，当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。
+        举例，内容中有abcd，查询词为ab或bc，则该内容需要标识 -->
+
+        <textarea type="text" id="input_text"></textarea>
+        <br>
+        <button id="left_in">左侧入</button>
+        <button id="right_in">右侧入</button>
+
+        <button id="left_out">左侧出</button>
+        <button id="right_out">右侧出</button>
+        <div id="list"></div>
+         
+        <br>
+        <input id="text" type="text">
+        <button id="search">查询</button>
+        <script>
+
+            var leftIn=document.getElementById("left_in");
+            var rightIn=document.getElementById("right_in");
+            var leftOut=document.getElementById("left_out");
+            var rightOut=document.getElementById("right_out");
+
+            var lists=document.getElementById("list");
+            var text=document.getElementById("input_text");            
+            
+            var txt=document.getElementById("text");
+            var sch=document.getElementById("search");
+
+         
+           
+            
+            //左侧入
+                leftIn.addEventListener("click",function(){
+                    //处理输入的内容
+                    var strs=text.value.replace(/\s+|\,+|\，+|\n+|\、+|\.+/g,' ');
+                    var arr=strs.split(' ');
+                    for(var i=arr.length-1;i>=0;i--){
+                        var node=document.createElement("span");
+                        var nodeText=document.createTextNode(arr[i]);
+                        node.appendChild(nodeText);
+                        lists.insertBefore(node,lists.children[0]);
+                    }
+                    text.value='';
+                });
+ 
+
+            //右侧入
+                rightIn.addEventListener("click",function(){
+                    var strs=text.value.replace(/\s+|\,+|\，+|\n+|\、+|\.+/g,' ');
+                    var arr=strs.split(' ');
+                    for(var i=0;i<arr.length;i++){
+                        var node=document.createElement("span");
+                        var nodeText=document.createTextNode(arr[i]);
+                        node.appendChild(nodeText);
+                        lists.appendChild(node);
+                    }
+                    text.value='';
+                });
+                
+            //左侧出
+                leftOut.addEventListener("click",function(){
+                    if(lists){
+                        alert(lists.firstElementChild.innerHTML);
+                        lists.firstElementChild.remove();
+                    }
+                    text.value='';
+                })
+            
+            //右侧出
+                rightOut.addEventListener("click",function(){
+                    if(lists){
+                        alert(lists.lastElementChild.innerHTML);
+                        lists.lastElementChild.remove();
+                    }
+                    text.value='';
+                })
+                
+            //删除点击的元素
+                lists.addEventListener("click",function(e){
+                    if(event.target.nodeName="span"){
+                        lists.removeChild(event.target)
+                    }
+                })
+
+
+            //点击查询
+                sch.onclick=function(){
+                    if(txt.value==""){
+                        alert("请输入要查询的数据");
+                        return;
+                    }
+                    var nodes=lists.childNodes;
+                    var len=nodes.length;
+                    for(var i=0;i<len;i++){
+                        var str=nodes[i].innerText;
+                        if(str.indexOf(txt.value)!==-1){
+                            nodes[i].style.backgroundColor="#fff";
+                            nodes[i].style.color="#0f0";
+                        }
+                    }
+                    txt.value="";
+                }
+        </script>     
     
 </body>
 </html>
