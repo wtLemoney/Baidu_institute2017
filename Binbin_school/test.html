@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,41 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        span{
-            background-color:red;
-            height:30px;
-            display: inline-block;
-        }
+
+p:nth-of-type(3n+1){
+    color:red;
+}
     </style>
 </head>
 <body>
-    <span>2</span>
-    <span>56</span>
-    <script>
-        var str="as, 274、we";
-        var arr=str.split(",","、");
-        console.log(arr);
-    </script>
+    <p>测试测试p</p>
+    <p>2</p>
+    <p>3</p>
+    <div>
+            
+            <div class="test">
+                    <span>qq</span>
+                    <span>qqq</span>
+                    <p>haha</p>
+                    <p>aaa</p>
+                    <span>我是审判</span>
+                    <p>安静的思考溜达溜达</p>
+            </div>
+            <p>23</p>
+            <p>1</p>
+            <p>2</p>
+            <a href="www">hhahha</a>
+    </div>
 </body>
-</html> -->
-<html>  
-<head>  
-    <title>title</title>  
 
-
-</head>  
-<body>  
-    <textarea type="text" id="input_text"></textarea>
-    <br>
-    <button id="search">查询</button>
-
-    <script>  
-        var text=document.getElementById("input_text"); 
-        var sch=document.getElementById("search");
-        sch.onclick=function(){
-           console.log(text.value.replace(/\s+|\,+|\，+|\n+|\、+|\.+/g,' '));
-       }
-       </script>  
-       
-</body>  
-</html>  
+</html>
