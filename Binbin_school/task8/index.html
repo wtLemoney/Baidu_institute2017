@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IFE JavaScript Task 07</title>
+</head>
+<style>
+    .wrapper,.box,.content,.tiny,.mini{
+        border:2px solid black;
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+        height:65%;
+        width:40%;
+
+    }
+    .wrapper{
+        width:90%;
+    }
+    body{
+        height:600px;
+        width:1300px;
+    }
+    .box1{
+        width:100px;
+    }
+</style>
+<body>
+    <div class="wrapper">S
+        <div class="box">what
+            <div class="content">A
+                <div class="tiny">Pe</div>
+                <div class="tiny">Pig</div>
+                <div class="tiny">Pig2</div>
+                <div class="tiny">Pig</div>
+            </div>
+            <div class="content">Phone</div>
+            <div class="content">
+                <div class="tiny">Book</div>
+                <div class="tiny">Sch</div>
+            </div>
+        </div>
+        <div class="box">Note
+            <div class="content">H
+                <div class="tiny">Code</div>
+                <div class="tiny">Cat</div>
+                <div class="tiny">Man</div>
+            </div>
+            <div class="content">Pr
+                <div class="tiny">Pig
+                    <div class="mini">Cat</div>
+                </div>
+                <div class="tiny">Glass</div>
+            </div>
+        </div>
+        <div class="box box1">Fish</div>
+    </div>
+    <br>
+    <button id="first">遍历</button>
+
+    <br><br>
+    <input type="text" id="in">
+    <button id="find">查询</button>
+    <script>
+        var first=document.getElementById("first");
+        var input=document.getElementById("in");
+        var find=document.getElementById("find");
+        
+        //空数组，按顺序存储遍历节点
+        var orderQueue=[];
+        var inAnimation=false;
+        
+        //遍历
+        function preOrder(root){
+            orderQueue.push(root);
+            if(root.children!=null){
+                for(var i=0;i<root.children.length;i++){
+                    preOrder(root.children[i]);
+            }
+            }
+        }
+
+        function render(){
+            if(inAnimation){
+                alert("in Animation");
+                return;
+            }
+            inAnimation=true;
+            var i=0;
+            var count=0;
+            orderQueue[i].style.backgroundColor="#0f0";
+            var show=setInterval(function(){
+                i++;
+                orderQueue[i];
+                if(i>=orderQueue.length){
+                    clearInterval(show);
+                    orderQueue[orderQueue.length-1].style.backgroundColor="#fff";
+                    inAnimation=false;
+                    orderQueue=[];//记得每一次遍历完，清空遍历节点数组
+                    
+                    if(count==0){
+                    alert("没有查询到数据！");
+                    return;
+                }
+                }
+                //console.log(orderQueue[i-1].childNodes[0].nodeValue.trim());
+                if(input.value==orderQueue[i-1].childNodes[0].nodeValue.trim()){
+                    orderQueue[i-1].style.backgroundColor="#f00";
+                    count++;
+                }else{
+                orderQueue[i-1].style.backgroundColor="#fff";
+                }
+                orderQueue[i].style.backgroundColor="#0f0";
+            },500);
+            
+        }
+
+
+
+        var rootNode=document.getElementsByClassName("wrapper")[0];
+        window.onload=function(){
+            first.onclick=function(){
+                preOrder(rootNode);
+                render();
+            }
+            find.onclick=function(){
+                preOrder(rootNode);
+                render();
+
+            }
+
+
+        }
+        
+    </script>
+</body>
+</html>

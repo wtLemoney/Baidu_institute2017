@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IFE JavaScript Task 07</title>
+</head>
+<style>
+    .wrapper,.box,.content,.tiny,.mini{
+        border:2px solid black;
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+        height:65%;
+        width:40%;
+
+    }
+    .wrapper{
+        width:90%;
+    }
+    body{
+        height:600px;
+        width:1300px;
+    }
+    .box1{
+        width:100px;
+    }
+</style>
+<body>
+    <div class="wrapper">S
+        <div class="box">what
+            <div class="content">A
+                <div class="tiny">Pe</div>
+                <div class="tiny">Pig</div>
+                <div class="tiny">Pig2</div>
+                <div class="tiny">Pig</div>
+            </div>
+            <div class="content">Phone</div>
+            <div class="content">
+                <div class="tiny">Book</div>
+                <div class="tiny">Sch</div>
+            </div>
+        </div>
+        <div class="box">Note
+            <div class="content">H
+                <div class="tiny">Code</div>
+                <div class="tiny">Cat</div>
+                <div class="tiny">Man</div>
+            </div>
+            <div class="content">Pr
+                <div class="tiny">Pig
+                    <div class="mini">Cat</div>
+                </div>
+                <div class="tiny">Glass</div>
+            </div>
+        </div>
+        <div class="box box1">Fish</div>
+    </div>
+    <br>
+    <button id="first">遍历</button>
+
+    <br><br>
+    <input type="text" id="in">
+    <button id="find">查询</button>
+    <script>
+
+        //空数组，按顺序存储遍历节点
+        var orderQueue=[];
+        var rootNode=document.getElementsByClassName("wrapper")[0];
+
+        function preOrder(root){
+            orderQueue.push(root);
+            if(root.children!=null){
+                for(var i=0;i<root.children.length;i++){
+                    preOrder(root.children[i]);
+            }
+            return orderQueue;
+        }
+    }
+        window.onload=function(){
+  
+            
+            
+       }
+        
+    </script>
+</body>
+</html>
